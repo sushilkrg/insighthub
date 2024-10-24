@@ -59,6 +59,8 @@ export const authOptions: NextAuthOptions = {
         session.user.isVerified = token.isVerified;
         session.user.username = token.username;
       }
+      // console.log("nextauth options-", session);
+      
       return session;
     },
   },

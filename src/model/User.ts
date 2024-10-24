@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, ObjectId, Schema } from "mongoose";
 
 export interface Message extends Document {
   content: string;
@@ -18,6 +18,7 @@ const MessageSchema: Schema<Message> = new mongoose.Schema({
 });
 
 export interface Insight extends Document {
+  _id: ObjectId;
   tag: string;
   question: string;
   isAcceptingMessage: boolean;
