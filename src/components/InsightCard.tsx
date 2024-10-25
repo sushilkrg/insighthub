@@ -1,8 +1,5 @@
 function InsightCard({ insight }: any) {
   const { tag, question, createdAt, isAcceptingMessage } = insight;
-  // console.log("iCard-",insight);
-  // console.log("iCard-",tag);
-
   const date = new Date(createdAt);
 
   // Get the individual components
@@ -11,7 +8,6 @@ function InsightCard({ insight }: any) {
   const day = date.getDate();
   const hours = date.getHours();
   const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
 
   // Format the date and time
   const formattedTime = `${year}-${month.toString().padStart(2, "0")}-${day
@@ -21,7 +17,7 @@ function InsightCard({ insight }: any) {
     .padStart(2, "0")}`;
 
   return (
-    <div className="mt-4 m-2 p-4 bg-gray-50 rounded-lg border border-gray-200 flex flex-col ">
+    <div className="mt-4 m-2 p-4 bg-gray-50 rounded-lg border border-gray-200 flex flex-col transform transition duration-300 hover:scale-105 hover:shadow-lg ">
       <div className="flex items-center justify-between p-2">
         <div className="border py-2 px-4 bg-green-300 rounded-md">{isAcceptingMessage ? "🟢 active" : "🔴 not active"}</div>
         <div className="border py-2 px-4 bg-gray-300 rounded-md">{tag}</div>

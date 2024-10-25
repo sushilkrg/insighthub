@@ -70,7 +70,7 @@ export async function POST(request: Request) {
       return Response.json(
         {
           success: false,
-          message: emailResponse.message,
+          message: emailResponse?.message,
         },
         { status: 500 }
       );

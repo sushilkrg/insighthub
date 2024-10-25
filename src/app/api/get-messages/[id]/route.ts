@@ -3,8 +3,7 @@ import UserModel from "@/model/User";
 import mongoose from "mongoose";
 import { User } from "next-auth";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../auth/[...nextauth]/options";
-import { useParams } from "next/navigation";
+import { authOptions } from "../../auth/[...nextauth]/options";
 
 export async function GET(request: Request) {
   await dbConnect();
@@ -18,41 +17,27 @@ export async function GET(request: Request) {
     );
   }
   const userId = new mongoose.Types.ObjectId(_user._id);
+
   try {
-    // const user = await UserModel.aggregate([
-    //   { $match: { _id: userId } },
-    //   { $unwind: "$messages" },
-    //   { $sort: { "messages.createdAt": -1 } },
-    //   { $group: { _id: "$_id", messages: { $push: "$messages" } } },
-    // ]).exec();
-
-    // if (!user || user.length === 0) {
-    //   return Response.json(
-    //     { message: "User not found", success: false },
-    //     { status: 404 }
-    //   );
-    // }
-
     const userData: any = await UserModel.findById(userId);
-    const { insightId } = useParams();
+    const url: any = request.url;
+    const id = url.split("/")[5];
 
-    // Function to get latest messages from a specific insight
+    // get latest messages from a specific insight
     const getLatestMessages = (): any => {
       // Find the specific insight by insightId
       const insight = userData.insights.find(
-        (insight: any) => insight._id.toString() === insightId.toString()
+        (insight: any) => insight._id.toString() === id.toString()
       );
 
       if (!insight) {
-        return undefined; // Return undefined if no matching insight is found
+        return undefined;
       }
 
-      // Sort messages by their creation date in descending order (latest first)
       const sortedMessages = insight.messages.sort(
         (a: any, b: any) => b.createdAt.getTime() - a.createdAt.getTime()
       );
 
-      // Return sorted messages (latest messages will be first)
       return sortedMessages;
     };
 

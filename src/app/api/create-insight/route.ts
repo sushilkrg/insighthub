@@ -7,9 +7,7 @@ export async function POST(request: Request) {
   await dbConnect();
 
   const session = await getServerSession(authOptions);
-  // console.log("create- ",session);
   const user: User = session?.user;
-  // console.log("create u-", user);
 
   if (!session || !session.user) {
     return Response.json(
@@ -20,11 +18,9 @@ export async function POST(request: Request) {
 
   const userId = user._id;
   const { tag, question } = await request.json();
-  console.log("itemss -", tag, question);
 
   try {
     const userData = await UserModel.findById(userId);
-    console.log("userData- ", userData);
 
     if (!userData) {
       return Response.json(
@@ -36,7 +32,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const newInsight = {tag, question, createdAt: new Date()};
+    const newInsight = { tag, question, createdAt: new Date() };
     userData.insights.push(newInsight as Insight);
     await userData.save();
 
@@ -49,10 +45,12 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     console.error("Error creating insight:", error);
-    return Response.json({
-      success: false,
-      message: "Error creating insight"
-    },{status: 500})
-    
+    return Response.json(
+      {
+        success: false,
+        message: "Error creating insight",
+      },
+      { status: 500 }
+    );
   }
 }

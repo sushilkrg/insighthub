@@ -1,9 +1,9 @@
 import dbConnect from "@/lib/dbConnect";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/options";
+import { authOptions } from "../../auth/[...nextauth]/options";
 import UserModel, { Insight, User } from "@/model/User";
 import { ObjectId } from "mongoose";
-import { useParams } from "next/navigation";
+import { NextRequest } from "next/server";
 
 export async function POST(request: Request) {
   await dbConnect();
@@ -24,18 +24,8 @@ export async function POST(request: Request) {
   }
 
   try {
-    // const getInsightById = (
-    //   userData: User,
-    //   insightId: ObjectId | string
-    // ): Insight | undefined => {
-    //   // Convert insightId to string if needed for comparison
-    //   return userData?.insights.find(
-    //     (insight) => insight._id.toString() === insightId.toString()
-    //   );
-    // };
-    const { insightId }: any = request.json();
-    const userData: any = await UserModel.findById(userId);
-    // const insight = getInsightById(userData, insightId);
+    const url: any = request.url;
+    const insightId: any = url?.match(/\/accept-messages\/([^/]+)/)[1];
 
     const result = await UserModel.updateOne(
       { _id: userId, "insights._id": insightId }, // Find the user and the specific insight
@@ -60,7 +50,7 @@ export async function POST(request: Request) {
       {
         success: true,
         message: "Message acceptance status updated successfully",
-        result,
+        // result,
       },
       { status: 200 }
     );
@@ -76,7 +66,7 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   await dbConnect();
 
   const session = await getServerSession(authOptions);
@@ -98,17 +88,14 @@ export async function GET(request: Request) {
       userData: User,
       insightId: ObjectId | string
     ): Insight | undefined => {
-      // Convert insightId to string if needed for comparison
       return userData?.insights.find(
         (insight) => insight._id.toString() === insightId.toString()
       );
     };
 
-    // --------check here ------------
+    const url: any = request.url;
+    const insightId: any = url?.match(/\/accept-messages\/([^/]+)/)[1];
 
-    
-    // const { insightId }: any = request.json();
-    const { insightId }: any = useParams();
     const userData: any = await UserModel.findById(userId);
     const insight = getInsightById(userData, insightId);
 
@@ -125,7 +112,8 @@ export async function GET(request: Request) {
     return Response.json(
       {
         success: true,
-        isAcceptingMessage: insight?.isAcceptingMessage,
+        // isAcceptingMessage: insight?.isAcceptingMessage,
+        insight: insight,
       },
       { status: 200 }
     );

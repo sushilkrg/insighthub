@@ -35,7 +35,7 @@ export default function VerifyAccount() {
 
       toast({
         title: "Success",
-        description: response.data.message,
+        description: response?.data?.message,
       });
 
       router.replace("/signin");

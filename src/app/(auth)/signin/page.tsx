@@ -37,8 +37,8 @@ export default function SignInForm() {
       password: data.password,
     });
 
-    if (result?.error) {
-      if (result.error === "CredentialsSignin") {
+    if (result?.error ) {
+      if (result?.error === "CredentialsSignin") {
         toast({
           title: "Login Failed",
           description: "Incorrect username or password",
@@ -47,7 +47,7 @@ export default function SignInForm() {
       } else {
         toast({
           title: "Error",
-          description: result.error,
+          description: result?.error,
           variant: "destructive",
         });
       }
@@ -60,10 +60,10 @@ export default function SignInForm() {
     <div className="flex justify-center items-center min-h-screen bg-gray-800">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
+          <h1 className="text-3xl font-extrabold tracking-tight lg:text-5xl mb-3">
             Welcome Back to InsightHub
           </h1>
-          <p className="mb-4">Sign in to continue your secret conversations</p>
+          <p className="mb-4">Sign in to continue getting anonymous insights</p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

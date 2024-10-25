@@ -1,15 +1,13 @@
 import dbConnect from "@/lib/dbConnect";
 import { getServerSession, User } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/options";
-import UserModel, { Insight } from "@/model/User";
+import UserModel from "@/model/User";
 
 export async function GET(request: Request) {
   await dbConnect();
 
   const session = await getServerSession(authOptions);
-  // console.log("create- ",session);
   const user: User = session?.user;
-  // console.log("create u-", user);
 
   if (!session || !session.user) {
     return Response.json(
@@ -22,7 +20,6 @@ export async function GET(request: Request) {
 
   try {
     const userData = await UserModel.findById(userId);
-    // console.log("userData- ", userData);
 
     if (!userData) {
       return Response.json(
@@ -43,10 +40,12 @@ export async function GET(request: Request) {
     );
   } catch (error) {
     console.error("Error creating insight:", error);
-    return Response.json({
-      success: false,
-      message: "Error creating insight"
-    },{status: 500})
-    
+    return Response.json(
+      {
+        success: false,
+        message: "Error creating insight",
+      },
+      { status: 500 }
+    );
   }
 }
