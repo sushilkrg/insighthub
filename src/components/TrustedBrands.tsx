@@ -26,7 +26,7 @@ const TrustedBrands = () => {
               <img
                 src={brand.logo}
                 alt={brand.name}
-                className="h-8 md:h-10 lg:h-12"
+                className="h-12 md:h-16 lg:h-20"
               />
             </div>
           ))}
