@@ -42,7 +42,7 @@ function Create() {
     setIsSubmitting(true);
     try {
       const response = await axios.post<ApiResponse>(
-        "/api/create-insightssss",
+        "/api/create-insight",
         data
       );
 
