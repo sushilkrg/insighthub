@@ -16,8 +16,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "InsightHub",
-  description: "The Perfect app to get anonymous feedback",
+  title: "InsightHub - The Perfect app to get anonymous feedback",
+  description: "InsightHub is an innovative platform designed to streamline feedback collection, enabling creators, educators, and event organizers to gain valuable insights from their audience or team members.",
 };
 
 export default function RootLayout({

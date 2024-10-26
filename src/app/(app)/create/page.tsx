@@ -56,10 +56,7 @@ function Create() {
     } catch (error) {
       console.error("Error in creating insight:", error);
       const axiosError:any = error as AxiosError;
-      console.log("axosErrrrror-", axiosError);
-      
       const errorMessage = axiosError?.message;
-      console.log("errrrrrorMessage-", errorMessage);
 
       toast({
         title: "Failed to create new Insight",

@@ -14,7 +14,6 @@ export default function UserDashboard() {
 
   const getInsights = async () => {
     const insightsData = await axios.get("/api/get-insights");
-    console.log(insightsData?.data?.insightsData);
     setInsights(insightsData?.data?.insightsData);
   };
 

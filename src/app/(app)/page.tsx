@@ -10,12 +10,13 @@ import {
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
+import TrustedBrands from '@/components/TrustedBrands';
 
 export default function Home() {
   return (
     <>
       {/* Main content */}
-      <main className="flex-grow flex flex-col items-center justify-center px-4 md:px-24 py-12 bg-gray-800 text-white">
+      <main className="h-[91vh] flex-grow flex flex-col items-center justify-center px-4 md:px-24 lg:px-24 py-12 bg-custom-gradient  text-white">
         <section className="text-center mb-8 md:mb-12">
           <h1 className="text-3xl md:text-5xl font-bold">
             Dive into the World of Anonymous Feedback
@@ -37,7 +38,7 @@ export default function Home() {
                   <CardHeader>
                     <CardTitle>{message.title}</CardTitle>
                   </CardHeader>
-                  <CardContent className="flex flex-col md:flex-row items-start space-y-2 md:space-y-0 md:space-x-4">
+                  <CardContent className="flex items-start space-y-0 space-x-4">
                     <Mail className="flex-shrink-0" />
                     <div>
                       <p>{message.content}</p>
@@ -52,6 +53,8 @@ export default function Home() {
           </CarouselContent>
         </Carousel>
       </main>
+
+      <TrustedBrands/>
 
       {/* Footer */}
       <footer className="text-center p-4 md:p-6 bg-gray-900 text-white">

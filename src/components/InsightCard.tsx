@@ -19,10 +19,20 @@ function InsightCard({ insight }: any) {
   return (
     <div className="mt-4 m-2 p-4 bg-gray-50 rounded-lg border border-gray-200 flex flex-col transform transition duration-300 hover:scale-105 hover:shadow-lg ">
       <div className="flex items-center justify-between p-2">
-        <div className="border py-2 px-4 bg-green-300 rounded-md">{isAcceptingMessage ? "🟢 active" : "🔴 not active"}</div>
+        {isAcceptingMessage ? (
+          <div className="border py-2 px-4 bg-green-300 rounded-md">
+            🟢 active
+          </div>
+        ) : (
+          <div className="border py-2 px-4 bg-red-300 rounded-md">
+            🔴 not active
+          </div>
+        )}
         <div className="border py-2 px-4 bg-gray-300 rounded-md">{tag}</div>
       </div>
-      <div className="min-h-16 flex justify-start font-bold ml-3 pt-2">{question}</div>
+      <div className="min-h-16 flex justify-start font-bold ml-3 pt-2">
+        {question}
+      </div>
       <div className="flex items-center justify-between p-2">
         <div className="font-thin opacity-50 italic">10k responses</div>
         <div className="font-sans italic">{formattedTime}</div>
