@@ -22,14 +22,6 @@ export default function UserDashboard() {
     getInsights();
   }, []);
 
-  if (!insights || insights.length == 0) {
-    return (
-      <div>
-        <h3>No Insight created.</h3>
-      </div>
-    );
-  }
-
   const handleClick = () => {
     router.replace("/create");
   };
@@ -41,9 +33,14 @@ export default function UserDashboard() {
         <Button onClick={handleClick}>+ Create</Button>
       </div>
       <div className="grid gap-2 md:grid-cols-2 grid-col-1 ">
-        {insights.map((insight) => (
-          <Link href={`/insight/${insight._id}`}>
-            <InsightCard key={insight._id} insight={insight} />
+        {(!insights || insights.length == 0) && (
+          <div>
+            <h3>No Insight Created.</h3>
+          </div>
+        )}
+        {insights.map((insight, index) => (
+          <Link href={`/insight/${insight._id}`} key={index}>
+            <InsightCard insight={insight} />
           </Link>
         ))}
       </div>

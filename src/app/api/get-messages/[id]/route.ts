@@ -51,7 +51,7 @@ export async function GET(request: Request) {
     }
 
     return Response.json(
-      { success: true, message: latestMessages },
+      { success: true, messages: latestMessages },
       {
         status: 200,
       }

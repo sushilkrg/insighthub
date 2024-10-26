@@ -1,14 +1,14 @@
 "use client";
 
 import { ApiResponse } from "@/types/ApiResponse";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useState } from "react";
 import {
   Form,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  // FormMessage,
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,11 +19,12 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
 
 function Create() {
  
-  const [tag, setTag] = useState("");
-  const [question, setQuestion] = useState("");
+  // const [tag, setTag] = useState("");
+  // const [question, setQuestion] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const router = useRouter();
@@ -41,7 +42,7 @@ function Create() {
     setIsSubmitting(true);
     try {
       const response = await axios.post<ApiResponse>(
-        "/api/create-insight",
+        "/api/create-insightssss",
         data
       );
 
@@ -54,8 +55,11 @@ function Create() {
       setIsSubmitting(false);
     } catch (error) {
       console.error("Error in creating insight:", error);
-      const axiosError: any = error as AxiosError;
-      let errorMessage: any = axiosError.response?.data.message;
+      const axiosError:any = error as AxiosError;
+      console.log("axosErrrrror-", axiosError);
+      
+      const errorMessage = axiosError?.message;
+      console.log("errrrrrorMessage-", errorMessage);
 
       toast({
         title: "Failed to create new Insight",
@@ -85,7 +89,7 @@ function Create() {
                       {...field}
                       onChange={(e) => {
                         field.onChange(e);
-                        setTag(e.target.value);
+                        // setTag(e.target.value);
                       }}
                     />
                   </FormItem>
@@ -103,7 +107,7 @@ function Create() {
                       {...field}
                       onChange={(e) => {
                         field.onChange(e);
-                        setQuestion(e.target.value);
+                        // setQuestion(e.target.value);
                       }}
                     />
                   </FormItem>

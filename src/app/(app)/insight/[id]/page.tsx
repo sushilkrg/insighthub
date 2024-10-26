@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
-import {  Message } from '@/model/User';
+import {  Insight, Message } from '@/model/User';
 import { ApiResponse } from '@/types/ApiResponse';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
@@ -25,10 +25,6 @@ function UserDashboard() {
 
   const { id } = useParams();
   const { toast } = useToast();
-
-  const handleDeleteMessage = (messageId: string) => {
-    setMessages(messages.filter((message) => message._id !== messageId));
-  };
 
   const { data: session } = useSession();
 
@@ -64,8 +60,8 @@ function UserDashboard() {
       setIsLoading(true);
       setIsSwitchLoading(false);
       try {
-        const response = await axios.get<any>(`/api/get-messages/${id}`);
-        setMessages(response.data.message || []);
+        const response = await axios.get<Insight>(`/api/get-messages/${id}`);
+        setMessages(response.data.messages || []);
         if (refresh) {
           toast({
             title: 'Refreshed Messages',
@@ -181,7 +177,7 @@ function UserDashboard() {
       </Button>
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
         {messages.length > 0 ? (
-          messages.map((message, index) => (
+          messages.map((message) => (
             <MessageCard
               key={message.id}
               message={message}
